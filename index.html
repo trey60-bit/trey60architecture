@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trey60 Architecture Solutions | Salesforce Strategy & Systems Design</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162447;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --white: #FFFFFF;
+    --offwhite: #F7F5F0;
+    --text-dark: #1A1A2E;
+    --text-mid: #4A4A6A;
+    --text-muted: #8888A8;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--offwhite);
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,27,62,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 2rem 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-lines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 780px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-headline em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 2rem;
+  }
+
+  .hero-certs {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+    margin-top: 3rem;
+    line-height: 2;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 1.5px solid var(--gold);
+    border-radius: 2px;
+    margin-left: 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { background: var(--gold); color: var(--navy); }
+
+  /* SECTIONS */
+  section { padding: 100px 2rem; }
+
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+  }
+
+  .about-photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-width: 320px;
+    background: var(--navy);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    overflow: hidden;
+  }
+
+  .about-photo-placeholder {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 2rem;
+    line-height: 1.8;
+  }
+
+  .about-corner {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    width: 80px;
+    height: 80px;
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    border-radius: 0 0 4px 0;
+  }
+
+  .about-body {
+    font-size: 17px;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2rem;
+  }
+
+  .cert-pill {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    background: var(--offwhite);
+    border: 1px solid rgba(13,27,62,0.15);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  /* SERVICES */
+  #services { background: var(--offwhite); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid rgba(13,27,62,0.08);
+    border-top: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .service-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-body {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+
+  /* BOOKING */
+  #booking { background: var(--navy); }
+
+  #booking .section-title { color: var(--white); }
+  #booking .section-eyebrow { color: var(--gold); }
+
+  .booking-sub {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3rem;
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .booking-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+  }
+
+  .booking-badge {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+  }
+
+  .badge-free { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .badge-paid { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+
+  .booking-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .booking-card-body {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .booking-features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .booking-features li {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .booking-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  .booking-notes {
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .booking-notes p {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #080F1F;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-corner { display: none; }
+    .nav-links { display: none; }
+    .btn-outline { margin-left: 0; margin-top: 0.75rem; }
+    .hero-content .btns { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .btn-outline { margin-left: 0; }
+    section { padding: 72px 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Trey<span>60</span> Architecture Solutions</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#booking">Book a Session</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="0" x2="1440" y2="0" stroke="#C9A84C" stroke-width="2.5"/>
+    <line x1="0" y1="898" x2="1440" y2="898" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="80" y1="0" x2="80" y2="900" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.15"/>
+    <line x1="1360" y1="0" x2="1360" y2="900" stroke="#C9A84C" stroke-width="0.4" stroke-opacity="0.15"/>
+    <circle cx="200" cy="200" r="1.5" fill="#C9A84C" opacity="0.3"/>
+    <circle cx="500" cy="140" r="1" fill="#C9A84C" opacity="0.25"/>
+    <circle cx="720" cy="80" r="1.5" fill="#C9A84C" opacity="0.3"/>
+    <circle cx="940" cy="130" r="1" fill="#C9A84C" opacity="0.25"/>
+    <circle cx="1240" cy="180" r="1.5" fill="#C9A84C" opacity="0.3"/>
+    <line x1="200" y1="200" x2="500" y2="140" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
+    <line x1="500" y1="140" x2="720" y2="80" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
+    <line x1="720" y1="80" x2="940" y2="130" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
+    <line x1="940" y1="130" x2="1240" y2="180" stroke="#C9A84C" stroke-width="0.5" stroke-opacity="0.12"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Trey60 Architecture Solutions &nbsp;·&nbsp; Salesforce Strategy & Systems Design</p>
+    <h1 class="hero-headline">Translating business needs into <em>scalable Salesforce solutions.</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">I deliver secure, efficient Salesforce architectures that eliminate technical debt, maximize your license investment, and free your team to focus on growth.</p>
+    <div class="btns">
+      <a href="#booking" class="btn-primary">Book your free Org Audit</a>
+      <a href="#services" class="btn-outline">See what I do</a>
+    </div>
+    <p class="hero-certs">Salesforce Application Architect &nbsp;·&nbsp; Data Cloud Consultant &nbsp;·&nbsp; Agentforce Specialist &nbsp;·&nbsp; PMP &nbsp;·&nbsp; Lean Six Sigma Black Belt &nbsp;·&nbsp; Certified Scrum Master</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <div class="about-photo-frame">
+          <p class="about-photo-placeholder">[ Your professional headshot goes here ]</p>
+        </div>
+        <div class="about-corner"></div>
+      </div>
+      <div>
+        <p class="section-eyebrow">About</p>
+        <h2 class="section-title">Architecture that actually moves the needle.</h2>
+        <div class="section-rule"></div>
+        <p class="about-body">I'm Trey — a solo Salesforce Application Architect with deep experience turning complex org challenges into clean, scalable systems. I've worked across enterprise, non-profit, and mission-driven organizations, building everything from Data Cloud pipelines to full CI/CD automation frameworks.</p>
+        <p class="about-body">I don't just identify problems and hand you a report. I stay in it with you — designing solutions, implementing them, and making sure your team can own them long after our engagement ends.</p>
+        <p class="about-body">My non-profit background includes donor data unification, NPSP/Nonprofit Cloud, grant reporting, and stewardship automation. If you're in the sector, I already speak your language.</p>
+        <div class="cert-grid">
+          <span class="cert-pill">Salesforce App Architect</span>
+          <span class="cert-pill">Data 360 Consultant</span>
+          <span class="cert-pill">Agentforce Specialist</span>
+          <span class="cert-pill">Platform Developer</span>
+          <span class="cert-pill">PMP</span>
+          <span class="cert-pill">Lean Six Sigma Black Belt</span>
+          <span class="cert-pill">Certified Scrum Master</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-eyebrow">What I do</p>
+    <h2 class="section-title">Your Salesforce org, working the way it should.</h2>
+    <div class="section-rule"></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🏗</span>
+        <p class="service-title">Enterprise Architecture</p>
+        <p class="service-body">End-to-end design of your data model, security model, and automation infrastructure. Built to scale with your business, not against it.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">☁️</span>
+        <p class="service-title">Data Cloud & AI Automation</p>
+        <p class="service-body">Unify your customer data and activate it with Agentforce and Einstein. I help you move from scattered records to a single, actionable source of truth.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔗</span>
+        <p class="service-title">Integrations & CI/CD</p>
+        <p class="service-body">Clean integrations with external systems and automated deployment pipelines using GitHub Actions and JWT-based auth — built to actually hold up in production.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤝</span>
+        <p class="service-title">Non-Profit CRM</p>
+        <p class="service-body">NPSP and Nonprofit Cloud implementations tailored for donor management, grant reporting, and stewardship automation. Built by someone who understands the mission.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔍</span>
+        <p class="service-title">Org Health Audit</p>
+        <p class="service-body">A professional diagnostic of your Salesforce org — surfacing technical debt, security gaps, and missed license value. The starting point for any smart engagement.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📋</span>
+        <p class="service-title">Technical Debt Remediation</p>
+        <p class="service-body">I scope, prioritize, and execute the cleanup work that's been on your backlog. Less clutter, faster performance, fewer fires.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="section-inner">
+    <p class="section-eyebrow">Book a session</p>
+    <h2 class="section-title">Let's find a time that works.</h2>
+    <div class="section-rule"></div>
+    <p class="booking-sub">Pick the option that fits where you are right now. No pressure, no commitment required on the free audit.</p>
+
+    <div class="booking-grid">
+      <div class="booking-card">
+        <span class="booking-badge badge-free">Free &nbsp;·&nbsp; 30 min</span>
+        <p class="booking-card-title">Free Org Health Audit</p>
+        <p class="booking-card-body">Not sure where to start? We'll dig into your current setup together and you'll walk away with a clear picture of what's holding your org back.</p>
+        <ul class="booking-features">
+          <li>Data model and automation review</li>
+          <li>Security and license analysis</li>
+          <li>Written summary of top findings</li>
+        </ul>
+        <a href="https://calendar.google.com/appointments/schedules/AcZssZ3mUne0KYt1FdnHZRWBgasH6Y4AsPCHK8CazrwbvxciQe2bUwVjjWguJb3bLimewjpgl0b4vPFW" target="_blank" class="btn-primary" style="display:block; text-align:center;">Book your free audit →</a>
+      </div>
+
+      <div class="booking-card">
+        <span class="booking-badge badge-paid">Paid &nbsp;·&nbsp; 60 min</span>
+        <p class="booking-card-title">Strategic Consultation</p>
+        <p class="booking-card-body">Already know what needs to change? This session is focused on your specific goals — Data Cloud, architecture, AI automation, or integration work.</p>
+        <ul class="booking-features">
+          <li>Deep dive on your chosen focus area</li>
+          <li>Architecture and solution recommendations</li>
+          <li>Action plan you can move on immediately</li>
+        </ul>
+        <a href="#booking" class="btn-outline" style="display:block; text-align:center; opacity:0.6; cursor:not-allowed;">Coming soon</a>
+      </div>
+    </div>
+
+    <div class="booking-notes">
+      <p>🕐 &nbsp;All times are Eastern. Acuity converts automatically if you're in another timezone.</p>
+      <p>💻 &nbsp;Sessions are held over Zoom — you'll get a link in your confirmation email.</p>
+      <p>📅 &nbsp;Need to reschedule? Use the link in your confirmation email at least 24 hours before.</p>
+      <p style="margin-top:1rem;">Questions before booking? &nbsp;<a href="mailto:info@trey60architecture.com" style="color:var(--gold); text-decoration:none;">info@trey60architecture.com</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">Trey<span>60</span> Architecture Solutions</p>
+  <p class="footer-tagline">Salesforce Strategy & Systems Design</p>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#booking">Book a Session</a></li>
+    <li><a href="mailto:info@trey60architecture.com">Contact</a></li>
+    <li><a href="https://www.trey60architecture.com">trey60architecture.com</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Trey60 Architecture Solutions. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
