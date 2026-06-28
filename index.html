@@ -316,10 +316,8 @@
   }
 
   .booking-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    max-width: 560px;
+    margin: 0 auto 3rem;
   }
 
   .booking-card {
@@ -578,9 +576,9 @@
 <section id="booking">
   <div class="section-inner">
     <p class="section-eyebrow">Book a session</p>
-    <h2 class="section-title">Let's find a time that works.</h2>
+    <h2 class="section-title">Book your free Org Health Audit.</h2>
     <div class="section-rule"></div>
-    <p class="booking-sub">Pick the option that fits where you are right now. No pressure, no commitment required on the free audit.</p>
+    <p class="booking-sub">A free 30-minute session to surface what's holding your Salesforce org back. No commitment required.</p>
 
     <div class="booking-grid">
       <div class="booking-card">
@@ -595,17 +593,6 @@
         <a href="https://calendar.google.com/appointments/schedules/AcZssZ3mUne0KYt1FdnHZRWBgasH6Y4AsPCHK8CazrwbvxciQe2bUwVjjWguJb3bLimewjpgl0b4vPFW" target="_blank" class="btn-primary" style="display:block; text-align:center;">Book your free audit →</a>
       </div>
 
-      <div class="booking-card">
-        <span class="booking-badge badge-paid">Paid &nbsp;·&nbsp; 60 min</span>
-        <p class="booking-card-title">Strategic Consultation</p>
-        <p class="booking-card-body">Already know what needs to change? This session is focused on your specific goals: Data Cloud, architecture, AI automation, or integration work.</p>
-        <ul class="booking-features">
-          <li>Deep dive on your chosen focus area</li>
-          <li>Architecture and solution recommendations</li>
-          <li>Action plan you can move on immediately</li>
-        </ul>
-        <a href="#booking" class="btn-outline" style="display:block; text-align:center; opacity:0.6; cursor:not-allowed;">Coming soon</a>
-      </div>
     </div>
 
     <div class="booking-notes">
