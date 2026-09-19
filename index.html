@@ -130,27 +130,21 @@
   .hero-creds { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line-dark); font-size: 14.5px; color: rgba(255,255,255,.62); max-width: 50ch; }
   .hero-creds strong { color: var(--soft); font-weight: 500; }
 
-
   /* Photo backgrounds. A local file in images/ wins, otherwise the Unsplash original loads.
      If neither loads, the plain dark background or illustration underneath shows instead. */
   .photo-bg { position: absolute; inset: -8% 0; z-index: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.08); opacity: .5; pointer-events: none; will-change: transform; }
-  .hero .photo-bg { inset: 0; background-image: url("images/hero.jpg"), url("https://images.unsplash.com/photo-1513682229978-58fc4680c142?auto=format&fit=crop&w=2000&q=70"); animation: drift 36s ease-in-out infinite alternate; }
+  .hero .photo-bg { inset: 0; background-image: url("images/hero.jpg"), url("https://images.unsplash.com/photo-1513682229978-58fc4680c142?auto=format&fit=crop&w=2000&q=70"); }
   .hero-shade { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, color-mix(in srgb, var(--dark) 94%, transparent) 0%, color-mix(in srgb, var(--dark) 80%, transparent) 46%, color-mix(in srgb, var(--dark) 62%, transparent) 100%), radial-gradient(circle at 74% 46%, color-mix(in srgb, var(--ink) 70%, transparent) 0, transparent 46%); }
-  @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.14) rotate(1.5deg); } }
-  .photo-band .photo-bg { background-image: url("images/band.jpg"), url("https://images.unsplash.com/photo-1771583640401-f4ed27a3e4fe?auto=format&fit=crop&w=2000&q=70"); opacity: 1; filter: grayscale(1) contrast(1.1) brightness(.8); }
-  .photo-band .shot::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(color-mix(in srgb, var(--accent-ink) 45%, transparent), color-mix(in srgb, var(--dark) 70%, transparent)); mix-blend-mode: multiply; pointer-events: none; }
   .booking::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--dark) 88%, transparent), color-mix(in srgb, var(--dark) 55%, transparent)); pointer-events: none; }
   .booking .photo-bg { background-image: url("images/booking.jpg"), url("https://images.unsplash.com/photo-1770580833511-1406842c0bb0?auto=format&fit=crop&w=2000&q=70"); opacity: .4; }
   .booking .wrap { position: relative; z-index: 1; }
-  .orbit { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 34 326; transform-origin: 240px 240px; animation: orbit 16s linear 1.8s infinite; opacity: .9; }
-  @keyframes orbit { to { transform: rotate(360deg); } }
   .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--d, 0s); }
   .js .reveal.in { opacity: 1; transform: none; }
   .service-list li { position: relative; }
   .service-list li::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 0; background: var(--accent); transition: width .45s var(--ease); }
   .service-list li:hover::before { width: 100%; }
-  .case .shot { transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
-  .case:hover .shot { transform: translateY(-6px); box-shadow: 0 24px 50px -24px color-mix(in srgb, var(--dark) 70%, transparent); }
+  .case { transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+  .case:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -24px color-mix(in srgb, var(--dark) 45%, transparent); }
   .credit { width: 100%; font-size: 13px; color: rgba(255,255,255,.45); }
   .credit a { color: inherit; }
 
@@ -211,36 +205,15 @@
   .service-list li:nth-child(-n+2) { border-top: 2px solid var(--dark); }
   .service-list .start a { display: inline-block; margin-top: 12px; color: var(--accent-ink); font-weight: 600; text-underline-offset: 4px; }
 
-
   /* Image slots: the illustration shows until a photo exists at the img path */
-  .shot { position: relative; overflow: hidden; border-radius: 14px; background: var(--dark); aspect-ratio: 8 / 5; }
-  .shot svg, .shot img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .shot img { object-fit: cover; }
-  .shot-wide { aspect-ratio: 21 / 8; border-radius: 0; }
-  .il-line { fill: none; stroke: rgba(var(--soft-rgb), .45); stroke-width: 1.5; }
-  .il-dash { fill: none; stroke: rgba(var(--soft-rgb), .4); stroke-width: 1.5; stroke-dasharray: 4 5; }
-  .il-box { fill: rgba(var(--soft-rgb), .08); stroke: rgba(var(--soft-rgb), .4); stroke-width: 1.2; }
-  .il-dim { fill: rgba(var(--soft-rgb), .28); }
-  .il-soft { fill: var(--soft); }
-  .il-accent { fill: var(--accent); }
-  .il-accent-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-  .il-text { fill: rgba(255,255,255,.8); font: 500 12px var(--font); }
-
-  .photo-band { background: var(--dark); }
-  .photo-band figcaption { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 110px 28px 40px; background: linear-gradient(transparent, color-mix(in srgb, var(--ink) 92%, transparent)); color: #fff; font-size: clamp(18px, 2.2vw, 28px); font-stretch: 114%; font-weight: 500; letter-spacing: -0.01em; text-align: center; }
 
   /* Case studies */
   .case-intro { max-width: 60ch; }
-  .cases { margin-top: 64px; display: grid; gap: clamp(56px, 7vw, 96px); }
-  .case { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-  .case:nth-child(even) .shot { order: 2; }
-  .case-client { font-size: 14.5px; color: var(--accent-ink); font-weight: 500; }
-  .case h3 { font-size: clamp(24px, 2.4vw, 30px); margin-top: 6px; max-width: 22ch; }
-  .case dl { margin-top: 22px; }
-  .case dt { font-weight: 600; font-size: 15px; margin-top: 16px; }
-  .case dd { color: var(--muted); max-width: 58ch; }
-  .case-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-  .case-tags li { font-size: 13.5px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--white); }
+  .cases { margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); }
+  .case { background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 14px; padding: clamp(24px, 2.6vw, 34px); }
+  .case-kicker { font-size: 14px; color: var(--accent-ink); font-weight: 500; }
+  .case h3 { font-size: 21px; margin-top: 8px; }
+  .case p:not(.case-kicker) { margin-top: 14px; color: var(--muted); font-size: 16px; }
 
   /* Process */
   .steps { list-style: none; counter-reset: step; margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
@@ -285,9 +258,8 @@
     .hero-grid { grid-template-columns: 1fr; gap: 56px; }
     .hero h1 { max-width: 14ch; }
     .hero::before { -webkit-mask-image: radial-gradient(ellipse 90% 50% at 50% 72%, #000, transparent 80%); mask-image: radial-gradient(ellipse 90% 50% at 50% 72%, #000, transparent 80%); }
-    .about-grid, .booking-grid, .case { grid-template-columns: 1fr; }
-    .case:nth-child(even) .shot { order: 0; }
-    .shot-wide { aspect-ratio: 16 / 9; }
+    .about-grid, .booking-grid { grid-template-columns: 1fr; }
+    .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .portrait { margin-inline: auto; }
     .steps { grid-template-columns: 1fr; gap: 44px; }
     .steps li { padding-right: 0; }
@@ -301,7 +273,7 @@
     .nav.is-open { display: flex; }
     .nav a:not(.btn) { padding: 14px 0; border-bottom: 1px solid var(--line-dark); }
     .nav .btn { margin-top: 16px; }
-    .service-list { grid-template-columns: 1fr; }
+    .service-list, .cases { grid-template-columns: 1fr; }
     .service-list li:nth-child(2) { border-top: 1px solid var(--line); }
     .creds ul { columns: 1; }
     .sector text { font-size: 17px; }
@@ -350,7 +322,7 @@
     </div>
 
     <div class="dial-col">
-      <svg class="dial" viewBox="-4 -4 488 488" role="group" aria-label="The six areas of a Salesforce org covered by a 360 degree review"><g class="ticks" aria-hidden="true"><line x1="240.00" y1="35.00" x2="240.00" y2="21.00" class="tk tk-major"/><line x1="257.87" y1="35.78" x2="258.39" y2="29.80" class="tk"/><line x1="275.60" y1="38.11" x2="276.64" y2="32.21" class="tk"/><line x1="293.06" y1="41.99" x2="294.61" y2="36.19" class="tk"/><line x1="310.11" y1="47.36" x2="312.17" y2="41.72" class="tk"/><line x1="326.64" y1="54.21" x2="329.17" y2="48.77" class="tk"/><line x1="342.50" y1="62.46" x2="349.50" y2="50.34" class="tk tk-major"/><line x1="357.58" y1="72.07" x2="361.02" y2="67.16" class="tk"/><line x1="371.77" y1="82.96" x2="375.63" y2="78.36" class="tk"/><line x1="384.96" y1="95.04" x2="389.20" y2="90.80" class="tk"/><line x1="397.04" y1="108.23" x2="401.64" y2="104.37" class="tk"/><line x1="407.93" y1="122.42" x2="412.84" y2="118.98" class="tk"/><line x1="417.54" y1="137.50" x2="429.66" y2="130.50" class="tk tk-major"/><line x1="425.79" y1="153.36" x2="431.23" y2="150.83" class="tk"/><line x1="432.64" y1="169.89" x2="438.28" y2="167.83" class="tk"/><line x1="438.01" y1="186.94" x2="443.81" y2="185.39" class="tk"/><line x1="441.89" y1="204.40" x2="447.79" y2="203.36" class="tk"/><line x1="444.22" y1="222.13" x2="450.20" y2="221.61" class="tk"/><line x1="445.00" y1="240.00" x2="459.00" y2="240.00" class="tk tk-major"/><line x1="444.22" y1="257.87" x2="450.20" y2="258.39" class="tk"/><line x1="441.89" y1="275.60" x2="447.79" y2="276.64" class="tk"/><line x1="438.01" y1="293.06" x2="443.81" y2="294.61" class="tk"/><line x1="432.64" y1="310.11" x2="438.28" y2="312.17" class="tk"/><line x1="425.79" y1="326.64" x2="431.23" y2="329.17" class="tk"/><line x1="417.54" y1="342.50" x2="429.66" y2="349.50" class="tk tk-major"/><line x1="407.93" y1="357.58" x2="412.84" y2="361.02" class="tk"/><line x1="397.04" y1="371.77" x2="401.64" y2="375.63" class="tk"/><line x1="384.96" y1="384.96" x2="389.20" y2="389.20" class="tk"/><line x1="371.77" y1="397.04" x2="375.63" y2="401.64" class="tk"/><line x1="357.58" y1="407.93" x2="361.02" y2="412.84" class="tk"/><line x1="342.50" y1="417.54" x2="349.50" y2="429.66" class="tk tk-major"/><line x1="326.64" y1="425.79" x2="329.17" y2="431.23" class="tk"/><line x1="310.11" y1="432.64" x2="312.17" y2="438.28" class="tk"/><line x1="293.06" y1="438.01" x2="294.61" y2="443.81" class="tk"/><line x1="275.60" y1="441.89" x2="276.64" y2="447.79" class="tk"/><line x1="257.87" y1="444.22" x2="258.39" y2="450.20" class="tk"/><line x1="240.00" y1="445.00" x2="240.00" y2="459.00" class="tk tk-major"/><line x1="222.13" y1="444.22" x2="221.61" y2="450.20" class="tk"/><line x1="204.40" y1="441.89" x2="203.36" y2="447.79" class="tk"/><line x1="186.94" y1="438.01" x2="185.39" y2="443.81" class="tk"/><line x1="169.89" y1="432.64" x2="167.83" y2="438.28" class="tk"/><line x1="153.36" y1="425.79" x2="150.83" y2="431.23" class="tk"/><line x1="137.50" y1="417.54" x2="130.50" y2="429.66" class="tk tk-major"/><line x1="122.42" y1="407.93" x2="118.98" y2="412.84" class="tk"/><line x1="108.23" y1="397.04" x2="104.37" y2="401.64" class="tk"/><line x1="95.04" y1="384.96" x2="90.80" y2="389.20" class="tk"/><line x1="82.96" y1="371.77" x2="78.36" y2="375.63" class="tk"/><line x1="72.07" y1="357.58" x2="67.16" y2="361.02" class="tk"/><line x1="62.46" y1="342.50" x2="50.34" y2="349.50" class="tk tk-major"/><line x1="54.21" y1="326.64" x2="48.77" y2="329.17" class="tk"/><line x1="47.36" y1="310.11" x2="41.72" y2="312.17" class="tk"/><line x1="41.99" y1="293.06" x2="36.19" y2="294.61" class="tk"/><line x1="38.11" y1="275.60" x2="32.21" y2="276.64" class="tk"/><line x1="35.78" y1="257.87" x2="29.80" y2="258.39" class="tk"/><line x1="35.00" y1="240.00" x2="21.00" y2="240.00" class="tk tk-major"/><line x1="35.78" y1="222.13" x2="29.80" y2="221.61" class="tk"/><line x1="38.11" y1="204.40" x2="32.21" y2="203.36" class="tk"/><line x1="41.99" y1="186.94" x2="36.19" y2="185.39" class="tk"/><line x1="47.36" y1="169.89" x2="41.72" y2="167.83" class="tk"/><line x1="54.21" y1="153.36" x2="48.77" y2="150.83" class="tk"/><line x1="62.46" y1="137.50" x2="50.34" y2="130.50" class="tk tk-major"/><line x1="72.07" y1="122.42" x2="67.16" y2="118.98" class="tk"/><line x1="82.96" y1="108.23" x2="78.36" y2="104.37" class="tk"/><line x1="95.04" y1="95.04" x2="90.80" y2="90.80" class="tk"/><line x1="108.23" y1="82.96" x2="104.37" y2="78.36" class="tk"/><line x1="122.42" y1="72.07" x2="118.98" y2="67.16" class="tk"/><line x1="137.50" y1="62.46" x2="130.50" y2="50.34" class="tk tk-major"/><line x1="153.36" y1="54.21" x2="150.83" y2="48.77" class="tk"/><line x1="169.89" y1="47.36" x2="167.83" y2="41.72" class="tk"/><line x1="186.94" y1="41.99" x2="185.39" y2="36.19" class="tk"/><line x1="204.40" y1="38.11" x2="203.36" y2="32.21" class="tk"/><line x1="222.13" y1="35.78" x2="221.61" y2="29.80" class="tk"/></g><g aria-hidden="true"><text x="240.00" y="8.00" class="deg" text-anchor="middle" dominant-baseline="middle">0°</text><text x="440.92" y="124.00" class="deg" text-anchor="middle" dominant-baseline="middle">60°</text><text x="440.92" y="356.00" class="deg" text-anchor="middle" dominant-baseline="middle">120°</text><text x="240.00" y="472.00" class="deg" text-anchor="middle" dominant-baseline="middle">180°</text><text x="39.08" y="356.00" class="deg" text-anchor="middle" dominant-baseline="middle">240°</text><text x="39.08" y="124.00" class="deg" text-anchor="middle" dominant-baseline="middle">300°</text></g><circle cx="240" cy="240" r="200" class="sweep" pathLength="360" aria-hidden="true"/><circle cx="240" cy="240" r="212" class="orbit" pathLength="360" aria-hidden="true"/><g class="sector" role="button" tabindex="0" data-i="0" aria-pressed="false" aria-label="Data model, 0 to 60 degrees" style="--n:0"><path d="M244.06 46.04A194 194 0 0 1 405.94 139.50L334.09 183.02A110 110 0 0 0 242.30 130.02Z"/><text x="316.00" y="108.36" text-anchor="middle" dominant-baseline="middle">Data model</text></g><g class="sector" role="button" tabindex="0" data-i="1" aria-pressed="false" aria-label="Security and licenses, 60 to 120 degrees" style="--n:1"><path d="M410.00 146.54A194 194 0 0 1 410.00 333.46L336.39 292.99A110 110 0 0 0 336.39 187.01Z"/><text x="392.00" y="240.00" text-anchor="middle" dominant-baseline="middle">Security</text></g><g class="sector" role="button" tabindex="0" data-i="2" aria-pressed="false" aria-label="Automation, 120 to 180 degrees" style="--n:2"><path d="M405.94 340.50A194 194 0 0 1 244.06 433.96L242.30 349.98A110 110 0 0 0 334.09 296.98Z"/><text x="316.00" y="371.64" text-anchor="middle" dominant-baseline="middle">Automation</text></g><g class="sector" role="button" tabindex="0" data-i="3" aria-pressed="false" aria-label="Integrations, 180 to 240 degrees" style="--n:3"><path d="M235.94 433.96A194 194 0 0 1 74.06 340.50L145.91 296.98A110 110 0 0 0 237.70 349.98Z"/><text x="164.00" y="371.64" text-anchor="middle" dominant-baseline="middle">Integrations</text></g><g class="sector" role="button" tabindex="0" data-i="4" aria-pressed="false" aria-label="Data 360 and AI, 240 to 300 degrees" style="--n:4"><path d="M70.00 333.46A194 194 0 0 1 70.00 146.54L143.61 187.01A110 110 0 0 0 143.61 292.99Z"/><text x="88.00" y="240.00" text-anchor="middle" dominant-baseline="middle">Data + AI</text></g><g class="sector" role="button" tabindex="0" data-i="5" aria-pressed="false" aria-label="Releases and DevOps, 300 to 360 degrees" style="--n:5"><path d="M74.06 139.50A194 194 0 0 1 235.94 46.04L237.70 130.02A110 110 0 0 0 145.91 183.02Z"/><text x="164.00" y="108.36" text-anchor="middle" dominant-baseline="middle">Releases</text></g><g class="marker" aria-hidden="true"><path d="M244.19 40.04A200 200 0 0 1 411.07 136.39"/></g><g class="hub" role="button" tabindex="0" aria-label="Show the full 360 degree overview"><circle cx="240" cy="240" r="98"/><text x="240" y="236" text-anchor="middle" class="hub-n">360°</text><text x="240" y="264" text-anchor="middle" class="hub-l">the full view</text></g></svg>
+      <svg class="dial" viewBox="-4 -4 488 488" role="group" aria-label="The six areas of a Salesforce org covered by a 360 degree review"><g class="ticks" aria-hidden="true"><line x1="240.00" y1="35.00" x2="240.00" y2="21.00" class="tk tk-major"/><line x1="257.87" y1="35.78" x2="258.39" y2="29.80" class="tk"/><line x1="275.60" y1="38.11" x2="276.64" y2="32.21" class="tk"/><line x1="293.06" y1="41.99" x2="294.61" y2="36.19" class="tk"/><line x1="310.11" y1="47.36" x2="312.17" y2="41.72" class="tk"/><line x1="326.64" y1="54.21" x2="329.17" y2="48.77" class="tk"/><line x1="342.50" y1="62.46" x2="349.50" y2="50.34" class="tk tk-major"/><line x1="357.58" y1="72.07" x2="361.02" y2="67.16" class="tk"/><line x1="371.77" y1="82.96" x2="375.63" y2="78.36" class="tk"/><line x1="384.96" y1="95.04" x2="389.20" y2="90.80" class="tk"/><line x1="397.04" y1="108.23" x2="401.64" y2="104.37" class="tk"/><line x1="407.93" y1="122.42" x2="412.84" y2="118.98" class="tk"/><line x1="417.54" y1="137.50" x2="429.66" y2="130.50" class="tk tk-major"/><line x1="425.79" y1="153.36" x2="431.23" y2="150.83" class="tk"/><line x1="432.64" y1="169.89" x2="438.28" y2="167.83" class="tk"/><line x1="438.01" y1="186.94" x2="443.81" y2="185.39" class="tk"/><line x1="441.89" y1="204.40" x2="447.79" y2="203.36" class="tk"/><line x1="444.22" y1="222.13" x2="450.20" y2="221.61" class="tk"/><line x1="445.00" y1="240.00" x2="459.00" y2="240.00" class="tk tk-major"/><line x1="444.22" y1="257.87" x2="450.20" y2="258.39" class="tk"/><line x1="441.89" y1="275.60" x2="447.79" y2="276.64" class="tk"/><line x1="438.01" y1="293.06" x2="443.81" y2="294.61" class="tk"/><line x1="432.64" y1="310.11" x2="438.28" y2="312.17" class="tk"/><line x1="425.79" y1="326.64" x2="431.23" y2="329.17" class="tk"/><line x1="417.54" y1="342.50" x2="429.66" y2="349.50" class="tk tk-major"/><line x1="407.93" y1="357.58" x2="412.84" y2="361.02" class="tk"/><line x1="397.04" y1="371.77" x2="401.64" y2="375.63" class="tk"/><line x1="384.96" y1="384.96" x2="389.20" y2="389.20" class="tk"/><line x1="371.77" y1="397.04" x2="375.63" y2="401.64" class="tk"/><line x1="357.58" y1="407.93" x2="361.02" y2="412.84" class="tk"/><line x1="342.50" y1="417.54" x2="349.50" y2="429.66" class="tk tk-major"/><line x1="326.64" y1="425.79" x2="329.17" y2="431.23" class="tk"/><line x1="310.11" y1="432.64" x2="312.17" y2="438.28" class="tk"/><line x1="293.06" y1="438.01" x2="294.61" y2="443.81" class="tk"/><line x1="275.60" y1="441.89" x2="276.64" y2="447.79" class="tk"/><line x1="257.87" y1="444.22" x2="258.39" y2="450.20" class="tk"/><line x1="240.00" y1="445.00" x2="240.00" y2="459.00" class="tk tk-major"/><line x1="222.13" y1="444.22" x2="221.61" y2="450.20" class="tk"/><line x1="204.40" y1="441.89" x2="203.36" y2="447.79" class="tk"/><line x1="186.94" y1="438.01" x2="185.39" y2="443.81" class="tk"/><line x1="169.89" y1="432.64" x2="167.83" y2="438.28" class="tk"/><line x1="153.36" y1="425.79" x2="150.83" y2="431.23" class="tk"/><line x1="137.50" y1="417.54" x2="130.50" y2="429.66" class="tk tk-major"/><line x1="122.42" y1="407.93" x2="118.98" y2="412.84" class="tk"/><line x1="108.23" y1="397.04" x2="104.37" y2="401.64" class="tk"/><line x1="95.04" y1="384.96" x2="90.80" y2="389.20" class="tk"/><line x1="82.96" y1="371.77" x2="78.36" y2="375.63" class="tk"/><line x1="72.07" y1="357.58" x2="67.16" y2="361.02" class="tk"/><line x1="62.46" y1="342.50" x2="50.34" y2="349.50" class="tk tk-major"/><line x1="54.21" y1="326.64" x2="48.77" y2="329.17" class="tk"/><line x1="47.36" y1="310.11" x2="41.72" y2="312.17" class="tk"/><line x1="41.99" y1="293.06" x2="36.19" y2="294.61" class="tk"/><line x1="38.11" y1="275.60" x2="32.21" y2="276.64" class="tk"/><line x1="35.78" y1="257.87" x2="29.80" y2="258.39" class="tk"/><line x1="35.00" y1="240.00" x2="21.00" y2="240.00" class="tk tk-major"/><line x1="35.78" y1="222.13" x2="29.80" y2="221.61" class="tk"/><line x1="38.11" y1="204.40" x2="32.21" y2="203.36" class="tk"/><line x1="41.99" y1="186.94" x2="36.19" y2="185.39" class="tk"/><line x1="47.36" y1="169.89" x2="41.72" y2="167.83" class="tk"/><line x1="54.21" y1="153.36" x2="48.77" y2="150.83" class="tk"/><line x1="62.46" y1="137.50" x2="50.34" y2="130.50" class="tk tk-major"/><line x1="72.07" y1="122.42" x2="67.16" y2="118.98" class="tk"/><line x1="82.96" y1="108.23" x2="78.36" y2="104.37" class="tk"/><line x1="95.04" y1="95.04" x2="90.80" y2="90.80" class="tk"/><line x1="108.23" y1="82.96" x2="104.37" y2="78.36" class="tk"/><line x1="122.42" y1="72.07" x2="118.98" y2="67.16" class="tk"/><line x1="137.50" y1="62.46" x2="130.50" y2="50.34" class="tk tk-major"/><line x1="153.36" y1="54.21" x2="150.83" y2="48.77" class="tk"/><line x1="169.89" y1="47.36" x2="167.83" y2="41.72" class="tk"/><line x1="186.94" y1="41.99" x2="185.39" y2="36.19" class="tk"/><line x1="204.40" y1="38.11" x2="203.36" y2="32.21" class="tk"/><line x1="222.13" y1="35.78" x2="221.61" y2="29.80" class="tk"/></g><g aria-hidden="true"><text x="240.00" y="8.00" class="deg" text-anchor="middle" dominant-baseline="middle">0°</text><text x="440.92" y="124.00" class="deg" text-anchor="middle" dominant-baseline="middle">60°</text><text x="440.92" y="356.00" class="deg" text-anchor="middle" dominant-baseline="middle">120°</text><text x="240.00" y="472.00" class="deg" text-anchor="middle" dominant-baseline="middle">180°</text><text x="39.08" y="356.00" class="deg" text-anchor="middle" dominant-baseline="middle">240°</text><text x="39.08" y="124.00" class="deg" text-anchor="middle" dominant-baseline="middle">300°</text></g><circle cx="240" cy="240" r="200" class="sweep" pathLength="360" aria-hidden="true"/><g class="sector" role="button" tabindex="0" data-i="0" aria-pressed="false" aria-label="Data model, 0 to 60 degrees" style="--n:0"><path d="M244.06 46.04A194 194 0 0 1 405.94 139.50L334.09 183.02A110 110 0 0 0 242.30 130.02Z"/><text x="316.00" y="108.36" text-anchor="middle" dominant-baseline="middle">Data model</text></g><g class="sector" role="button" tabindex="0" data-i="1" aria-pressed="false" aria-label="Security and licenses, 60 to 120 degrees" style="--n:1"><path d="M410.00 146.54A194 194 0 0 1 410.00 333.46L336.39 292.99A110 110 0 0 0 336.39 187.01Z"/><text x="392.00" y="240.00" text-anchor="middle" dominant-baseline="middle">Security</text></g><g class="sector" role="button" tabindex="0" data-i="2" aria-pressed="false" aria-label="Automation, 120 to 180 degrees" style="--n:2"><path d="M405.94 340.50A194 194 0 0 1 244.06 433.96L242.30 349.98A110 110 0 0 0 334.09 296.98Z"/><text x="316.00" y="371.64" text-anchor="middle" dominant-baseline="middle">Automation</text></g><g class="sector" role="button" tabindex="0" data-i="3" aria-pressed="false" aria-label="Integrations, 180 to 240 degrees" style="--n:3"><path d="M235.94 433.96A194 194 0 0 1 74.06 340.50L145.91 296.98A110 110 0 0 0 237.70 349.98Z"/><text x="164.00" y="371.64" text-anchor="middle" dominant-baseline="middle">Integrations</text></g><g class="sector" role="button" tabindex="0" data-i="4" aria-pressed="false" aria-label="Data 360 and AI, 240 to 300 degrees" style="--n:4"><path d="M70.00 333.46A194 194 0 0 1 70.00 146.54L143.61 187.01A110 110 0 0 0 143.61 292.99Z"/><text x="88.00" y="240.00" text-anchor="middle" dominant-baseline="middle">Data + AI</text></g><g class="sector" role="button" tabindex="0" data-i="5" aria-pressed="false" aria-label="Releases and DevOps, 300 to 360 degrees" style="--n:5"><path d="M74.06 139.50A194 194 0 0 1 235.94 46.04L237.70 130.02A110 110 0 0 0 145.91 183.02Z"/><text x="164.00" y="108.36" text-anchor="middle" dominant-baseline="middle">Releases</text></g><g class="marker" aria-hidden="true"><path d="M244.19 40.04A200 200 0 0 1 411.07 136.39"/></g><g class="hub" role="button" tabindex="0" aria-label="Show the full 360 degree overview"><circle cx="240" cy="240" r="98"/><text x="240" y="236" text-anchor="middle" class="hub-n">360°</text><text x="240" y="264" text-anchor="middle" class="hub-l">the full view</text></g></svg>
       <div class="readout" id="readout" aria-live="polite">
         <div class="readout-range">0° to 360°</div>
         <h3>Six areas, 60 degrees each</h3>
@@ -396,17 +368,6 @@
   </div>
 </section>
 
-<section class="photo-band" aria-label="What the work looks like">
-  <figure class="shot shot-wide">
-        <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect x="190" y="110" width="100" height="80" rx="12" class="il-box"/><g transform="translate(240 150)"><circle r="22" fill="none" stroke="var(--accent)" stroke-width="7" stroke-dasharray="19.5 3.5"/></g>
-<g class="il-box"><rect x="30" y="60" width="84" height="40" rx="8"/><rect x="30" y="200" width="84" height="40" rx="8"/><rect x="366" y="60" width="84" height="40" rx="8"/><rect x="366" y="200" width="84" height="40" rx="8"/><rect x="198" y="18" width="84" height="40" rx="8"/><rect x="198" y="242" width="84" height="40" rx="8"/></g>
-<path class="il-line" d="M114 80C160 80 150 130 190 135M114 220C160 220 150 170 190 165M366 80C320 80 330 130 290 135M366 220C320 220 330 170 290 165M240 58V110M240 190V242"/>
-<g class="il-text" text-anchor="middle"><text x="72" y="84">Giving</text><text x="72" y="224">Identity</text><text x="408" y="84">Marketing</text><text x="408" y="224">Data 360</text><text x="240" y="42">Programs</text><text x="240" y="266">DevOps</text></g></svg>
-        <div class="photo-bg parallax" aria-hidden="true"></div>
-        <figcaption>Most of the work is drawing the whole system before touching any of it.</figcaption>
-      </figure>
-</section>
-
 <section class="band services" id="services">
   <div class="wrap">
     <h2>Your Salesforce org, working the way it should.</h2>
@@ -446,79 +407,34 @@
     <p class="lede case-intro">These come from my work as the in-house architect for a national nonprofit running six Salesforce clouds. The organization stays unnamed. The work is mine.</p>
     <div class="cases">
       <article class="case">
-      <figure class="shot ">
-        <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="il-dim"><rect x="40" y="84" width="118" height="12" rx="6" transform="rotate(-4 40 84)"/><rect x="52" y="116" width="84" height="12" rx="6" transform="rotate(3 52 116)"/><rect x="36" y="150" width="130" height="12" rx="6" transform="rotate(-2 36 150)"/><rect x="58" y="184" width="70" height="12" rx="6" transform="rotate(5 58 184)"/><rect x="44" y="214" width="104" height="12" rx="6" transform="rotate(-3 44 214)"/></g>
-<path class="il-dash" d="M176 150H206"/><circle cx="240" cy="150" r="34" class="il-box"/><path class="il-accent-line" d="M226 151l10 10 19-22"/><path class="il-dash" d="M274 150H304"/>
-<g class="il-soft"><rect x="320" y="86" width="120" height="12" rx="6"/><rect x="320" y="118" width="120" height="12" rx="6"/><rect x="320" y="150" width="120" height="12" rx="6"/><rect x="320" y="182" width="120" height="12" rx="6"/></g><rect x="320" y="214" width="120" height="12" rx="6" class="il-accent"/></svg>
-        <img src="images/case-addresses.jpg" alt="Stacks of addressed envelopes ready for mailing" loading="lazy" onerror="this.remove()">
-      </figure>
-        <div>
-          <p class="case-client">National nonprofit, six-cloud Salesforce org</p>
-          <h3>Donor addresses fixed in the backlog and at the source</h3>
-          <dl>
-            <dt>Situation</dt><dd>Donor addresses arrived from an online giving platform exactly as donors typed them, and the existing donor base was due for a postal change-of-address pass.</dd>
-            <dt>What I did</dt><dd>Processed an NCOA/PCOA file into load files covering about 18,900 address updates, 3,300 do-not-mail suppressions, and 1,400 deceased flags. For new gifts, added validation to the webhook pipeline with an Apex Queueable and the Google Address Validation API, plus a self-contained Apex standardization routine that needs no external callout.</dd>
-            <dt>Now in place</dt><dd>Existing records corrected in bulk, and new addresses standardized as they arrive instead of waiting for the next cleanup.</dd>
-          </dl>
-          <ul class="case-tags" aria-label="Tools used"><li>Apex</li><li>Queueable</li><li>Google Address Validation</li><li>NCOA/PCOA</li></ul>
-        </div>
+        <p class="case-kicker">Data Cloud</p>
+        <h3>Duplicate donor profiles cut from 20% to 5%</h3>
+        <p>Supporter data came from the core Salesforce org and several outside platforms, and about one in five profiles was a duplicate of someone already on file. I implemented Data Cloud, brought each source in as a data stream mapped to the standard data model, and designed the identity resolution match and reconciliation rules that decide when two records are the same person. Duplicate profiles fell from 20% to 5%, so fundraising and marketing now work from one view of each supporter.</p>
       </article>
       <article class="case">
-      <figure class="shot ">
-        <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="il-box"><rect x="44" y="52" width="150" height="86" rx="43"/><rect x="250" y="40" width="190" height="86" rx="43"/><rect x="70" y="176" width="86" height="86" rx="43"/><rect x="214" y="170" width="220" height="90" rx="45"/></g>
-<g class="il-soft"><circle cx="90" cy="95" r="15"/><circle cx="148" cy="95" r="15"/><circle cx="296" cy="83" r="15"/><circle cx="345" cy="83" r="15"/><circle cx="394" cy="83" r="15"/><circle cx="262" cy="215" r="15"/><circle cx="324" cy="215" r="15"/></g>
-<circle cx="113" cy="219" r="15" class="il-accent"/><circle cx="386" cy="215" r="15" class="il-accent"/>
-<path class="il-dash" d="M194 95h56M156 219h58"/></svg>
-        <img src="images/case-households.jpg" alt="Family at a kitchen table" loading="lazy" onerror="this.remove()">
-      </figure>
-        <div>
-          <p class="case-client">National nonprofit, six-cloud Salesforce org</p>
-          <h3>A household model that covers every donor</h3>
-          <dl>
-            <dt>Situation</dt><dd>The org runs Nonprofit Cloud on Person Accounts. Households existed only where two or more people shared a last name and address, and roughly 168,000 household accounts had no Party Relationship Group record behind them.</dd>
-            <dt>What I did</dt><dd>Helped the team decide to give every person a household, corrected the type on about 2,900 existing group records, and loaded relationship groups for the 168,000 that lacked one. Designed an Apex matching service, keyed on last name, postal code, and street, so accounts created by integrations join the right household automatically.</dd>
-            <dt>Now in place</dt><dd>One consistent household structure across the donor base. Duplicate household cleanup and the matching service are the current phase.</dd>
-          </dl>
-          <ul class="case-tags" aria-label="Tools used"><li>Nonprofit Cloud</li><li>Person Accounts</li><li>Party Relationship Groups</li><li>Apex triggers</li></ul>
-        </div>
+        <p class="case-kicker">Integration</p>
+        <h3>A siloed donation platform, brought into Salesforce</h3>
+        <p>Online gifts were processed in a separate donation platform, so Salesforce never had the full picture of who gave and when. I built a webhook integration that sends each gift to Salesforce as it happens, where Apex matches the donor to an existing record or creates one and records the gift in Nonprofit Cloud. Gifts now land in Salesforce linked to the right donor, and fundraising reports include online giving without manual imports.</p>
       </article>
       <article class="case">
-      <figure class="shot ">
-        <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="il-box"><rect x="40" y="56" width="120" height="44" rx="8"/><rect x="40" y="128" width="120" height="44" rx="8"/><rect x="40" y="200" width="120" height="44" rx="8"/></g>
-<g class="il-dim"><rect x="54" y="72" width="60" height="10" rx="5"/><rect x="54" y="144" width="84" height="10" rx="5"/><rect x="54" y="216" width="44" height="10" rx="5"/></g>
-<path class="il-line" d="M160 78C220 78 220 150 270 150M160 150H270M160 222C220 222 220 150 270 150"/>
-<rect x="270" y="96" width="170" height="108" rx="12" class="il-box"/><g class="il-soft"><rect x="292" y="160" width="22" height="26" rx="3"/><rect x="324" y="142" width="22" height="44" rx="3"/><rect x="356" y="150" width="22" height="36" rx="3"/></g><rect x="388" y="118" width="22" height="68" rx="3" class="il-accent"/></svg>
-        <img src="images/case-programs.jpg" alt="Volunteers serving meals in a community kitchen" loading="lazy" onerror="this.remove()">
-      </figure>
-        <div>
-          <p class="case-client">National nonprofit, six-cloud Salesforce org</p>
-          <h3>A program app for community kitchens</h3>
-          <dl>
-            <dt>Situation</dt><dd>A community kitchen program needed to track what it delivers, site by site, in the same org that runs fundraising.</dd>
-            <dt>What I did</dt><dd>Built the app on Nonprofit Cloud Program Management with Benefit Disbursement rollups, then wrote the UAT procedure that kitchen liaisons used to test it themselves.</dd>
-            <dt>Now in place</dt><dd>Program delivery data sits next to donor data, tested by the people who use it every day.</dd>
-          </dl>
-          <ul class="case-tags" aria-label="Tools used"><li>Program Management</li><li>Benefit Disbursement</li><li>Rollups</li><li>UAT</li></ul>
-        </div>
+        <p class="case-kicker">Integration</p>
+        <h3>Slack alerts from Salesforce, two ways</h3>
+        <p>Staff needed to hear about important moments in Salesforce as they happened, without watching dashboards. I built two patterns. Platform Events, published from Apex and Flow, carry alerts that more than one system cares about: the transaction never waits on Slack, and a Slack outage can't roll back Salesforce work. For simple one-to-one alerts, an Apex HTTP callout posts straight to a Slack webhook through a Named Credential, keeping the URL out of code.</p>
       </article>
       <article class="case">
-      <figure class="shot ">
-        <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="il-line" d="M70 150H410"/><path class="il-dash" d="M150 150C180 150 180 84 214 84H266C300 84 300 150 330 150"/>
-<g class="il-box"><circle cx="70" cy="150" r="22"/><circle cx="150" cy="150" r="22"/><circle cx="240" cy="84" r="22"/><circle cx="240" cy="150" r="22"/><circle cx="330" cy="150" r="22"/></g>
-<circle cx="410" cy="150" r="26" class="il-accent"/><path d="M399 151l8 8 15-17" fill="none" stroke="var(--dark)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g class="il-text" text-anchor="middle"><text x="70" y="200">commit</text><text x="150" y="200">validate</text><text x="240" y="200">test</text><text x="240" y="50">scan</text><text x="330" y="200">approve</text><text x="410" y="204">deploy</text></g></svg>
-        <img src="images/case-devops.jpg" alt="Engineer reviewing a deployment pipeline on a laptop" loading="lazy" onerror="this.remove()">
-      </figure>
-        <div>
-          <p class="case-client">National nonprofit, six-cloud Salesforce org</p>
-          <h3>Releases and sign-in that don't depend on one laptop</h3>
-          <dl>
-            <dt>Situation</dt><dd>Six clouds, several inbound integrations, and three Salesforce releases a year, with deployments tied to stored credentials.</dd>
-            <dt>What I did</dt><dd>Migrated the CI/CD pipeline from stored sfdx auth URLs to JWT-based authentication with GitHub Actions. Rolled out Okta single sign-on, built webhook integrations from giving and advocacy platforms, and run a release impact review across every cloud ahead of seasonal releases.</dd>
-            <dt>Now in place</dt><dd>Deployments run from source control with no long-lived credentials, users sign in through one identity provider, and every release is reviewed before it lands.</dd>
-          </dl>
-          <ul class="case-tags" aria-label="Tools used"><li>GitHub Actions</li><li>JWT auth</li><li>Okta SSO</li><li>Webhooks</li><li>Release management</li></ul>
-        </div>
+        <p class="case-kicker">Data quality</p>
+        <h3>Donor addresses fixed in the backlog and at the source</h3>
+        <p>Addresses arrived from the online giving platform exactly as donors typed them, and the donor base was due for a change-of-address pass. I processed an NCOA/PCOA file into about 18,900 address updates, 3,300 do-not-mail suppressions, and 1,400 deceased flags, then added validation to the gift pipeline with an Apex Queueable and the Google Address Validation API. Existing records were corrected in bulk, and new addresses are standardized as they arrive.</p>
+      </article>
+      <article class="case">
+        <p class="case-kicker">Nonprofit Cloud</p>
+        <h3>A household model that covers every donor</h3>
+        <p>The org runs Nonprofit Cloud on Person Accounts, and households existed only where two people shared a last name and address, leaving about 168,000 household accounts with no Party Relationship Group behind them. I helped the team decide to give every person a household, corrected about 2,900 existing group records, loaded the missing 168,000, and designed an Apex matching service so accounts created by integrations join the right household automatically.</p>
+      </article>
+      <article class="case">
+        <p class="case-kicker">DevOps</p>
+        <h3>Releases and sign-in that don't depend on one laptop</h3>
+        <p>Six clouds, several inbound integrations, and three Salesforce releases a year, with deployments tied to stored credentials. I moved the CI/CD pipeline from stored sfdx auth URLs to JWT-based authentication in GitHub Actions, rolled out Okta single sign-on, and run a release impact review across every cloud ahead of each seasonal release. Deployments now run from source control with no long-lived credentials, and every release is reviewed before it lands.</p>
       </article>
     </div>
   </div>
@@ -679,7 +595,6 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
-
 
   // Scroll reveals
   var rev = [].slice.call(document.querySelectorAll("main h2, .lede, .prose > p, .creds, .portrait, .service-list li, .case, .steps li, .offer, .booking-notes"));
